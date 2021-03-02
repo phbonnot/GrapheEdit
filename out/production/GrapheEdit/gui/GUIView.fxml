@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="390.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.Controleur">
+   <center>
+      <AnchorPane fx:id="mainAnchorPane" onMousePressed="#detectionSouris" prefHeight="317.0" prefWidth="578.0" />
+   </center>
+   <right>
+      <VBox prefHeight="200.0" prefWidth="150.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+          <Button fx:id="btnSommet" mnemonicParsing="false" onAction="#creationSommet" text="nouveau sommet" />
+            <HBox prefHeight="33.0" prefWidth="140.0">
+               <children>
+                  <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                      <Button fx:id="nombres" mnemonicParsing="false" onAction="#definirLibellesChiffres" text="1" />
+                        <Button fx:id="lettres" mnemonicParsing="false" onAction="#definirLibellesLettres" text="A" />
+                    </buttons>
+                  </ButtonBar>
+               </children>
+            </HBox>
+            <Button fx:id="btnArete" mnemonicParsing="false" onAction="#creationArete" text="nouvelle arete" />
+            <Button fx:id="btnSelect" mnemonicParsing="false" onAction="#selection" prefHeight="18.0" prefWidth="105.0" text="Sélection" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+   </right>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
