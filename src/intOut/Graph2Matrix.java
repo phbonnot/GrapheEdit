@@ -33,6 +33,5 @@ public class Graph2Matrix {
         catch(IOException ioe){
             ioe.printStackTrace();
         }
-
     }
 }
