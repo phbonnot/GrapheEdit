@@ -2,20 +2,21 @@ package gui;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurve;
+import modele.Boucle;
 import modele.Sommet;
 
-import java.awt.*;
+public class VueBoucle extends CubicCurve {
 
-public class Boucle extends CubicCurve {
-
+    Boucle boucle;
     Sommet sommet;
 
-    public Boucle(Sommet s){
-        super(s.getPosition().getX(),s.getPosition().getY(),s.getPosition().getX()-50,
-                s.getPosition().getY()-50,s.getPosition().getX()+50,
-                s.getPosition().getY()-50,
-                s.getPosition().getX(),s.getPosition().getY());
-        this.sommet=s;
+    public VueBoucle(Boucle b){
+        super(b.getSommet().getPosition().getX(),b.getSommet().getPosition().getY(),b.getSommet().getPosition().getX()-50,
+                b.getSommet().getPosition().getY()-50,b.getSommet().getPosition().getX()+50,
+                b.getSommet().getPosition().getY()-50,
+                b.getSommet().getPosition().getX(),b.getSommet().getPosition().getY());
+        this.boucle=b;
+        this.sommet=b.getSommet();
     }
 
     public void binder() {
