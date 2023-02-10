@@ -1,6 +1,9 @@
 package controle;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -49,6 +52,8 @@ public class Controleur implements Initializable {
 	    @FXML
 	    private Button lettres;
 
+		@FXML
+		private MenuItem open;
 	    @FXML
 	    void definirLibellesChiffres(ActionEvent event) {
 	    	this.natureLibelles="chiffres";
@@ -88,6 +93,33 @@ public class Controleur implements Initializable {
 		}
 
 
+
+		@FXML
+		void open(ActionEvent event) {
+			final FileChooser fileChooser = new FileChooser();
+			File openFile = fileChooser.showOpenDialog(null);
+			try{
+				BufferedReader reader = new BufferedReader(new FileReader(openFile));
+
+				// Lire une à une les lignes contenues dans le fichier
+				String ligne = reader.readLine();
+				int k=0;
+				int[][] matriceAdj=new int[ligne.length()][ligne.length()];
+				while (ligne != null) {
+					for(int i=0;i<ligne.length();i++) {
+						matriceAdj[k][i] = ligne.charAt(i) - 48;
+					}
+					ligne = reader.readLine();
+					k++;
+				}
+				Graph2Matrix.afficherMatrice(matriceAdj);
+				// lorqu'on a terminé d'utiliser le fichier, ne pas oublier de fermer le reader.
+				reader.close();
+			}
+			catch(IOException ioe){
+				ioe.printStackTrace();
+			}
+		}
 	    @FXML
 	    void detectionSouris(MouseEvent e) {
 	    	if(this.ctnSommet.get()) {

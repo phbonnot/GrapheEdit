@@ -34,4 +34,13 @@ public class Graph2Matrix {
             ioe.printStackTrace();
         }
     }
+
+    public static void afficherMatrice(int[][] t){
+        for (int i = 0; i < t.length; i++) {
+            for (int j = 0; j < t[i].length; j++) {
+                System.out.print(t[i][j]+"\t");
+            }
+            System.out.println();
+        }
+    }
 }
