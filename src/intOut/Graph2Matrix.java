@@ -35,6 +35,11 @@ public class Graph2Matrix {
         }
     }
 
+    public int[][] lectureMatrice(File f){
+        int[][] matrice={};
+        //TODO
+        return matrice;
+    }
     public static void afficherMatrice(int[][] t){
         for (int i = 0; i < t.length; i++) {
             for (int j = 0; j < t[i].length; j++) {

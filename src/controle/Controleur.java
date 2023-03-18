@@ -106,14 +106,12 @@ public class Controleur implements Initializable {
 				int k=0;
 				int[][] matriceAdj=new int[ligne.length()][ligne.length()];
 				while (ligne != null) {
-					for(int i=0;i<ligne.length();i++) {
+					for (int i = 0; i < ligne.length(); i++) {
 						matriceAdj[k][i] = ligne.charAt(i) - 48;
 					}
 					ligne = reader.readLine();
 					k++;
 				}
-				Graph2Matrix.afficherMatrice(matriceAdj);
-				// lorqu'on a terminé d'utiliser le fichier, ne pas oublier de fermer le reader.
 				reader.close();
 			}
 			catch(IOException ioe){
