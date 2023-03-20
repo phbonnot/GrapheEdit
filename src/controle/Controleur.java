@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import intOut.Graph2LaTeX;
 import modele.Boucle;
 import gui.VueArete;
 import gui.VueBoucle;
@@ -36,6 +37,9 @@ public class Controleur implements Initializable {
 
 		@FXML
 		private MenuItem save;
+
+		@FXML
+		private MenuItem export;
 
 		@FXML
 	    private Button btnSommet;
@@ -92,7 +96,11 @@ public class Controleur implements Initializable {
 			serialise(sauvegarde);
 		}
 
-
+		@FXML
+		void export(ActionEvent event){
+			Graph2LaTeX graph2LaTeX=new Graph2LaTeX(this.graphe);
+			System.out.println(graph2LaTeX.toLaTeX());
+		}
 
 		@FXML
 		void open(ActionEvent event) {
@@ -122,6 +130,7 @@ public class Controleur implements Initializable {
 	    void detectionSouris(MouseEvent e) {
 	    	if(this.ctnSommet.get()) {
 	    		Sommet sommet=this.graphe.ajouterSommet(e.getX(),e.getY());
+				//System.out.println("x="+e.getX()+" y="+e.getY());
 	    		VueSommet vueSommet=new VueSommet(sommet);
 	    		if(this.natureLibelles.equals("lettres")) {
 	    			int ascii=this.graphe.getId()+64;

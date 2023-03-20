@@ -52,4 +52,22 @@ public class Graphe {
 		return adj;
 	}
 
+	public double getWidth(){
+		double width=0;
+		for(Sommet s:listeSommets){
+			double x=s.getPosition().getX();
+			if(x>width) width=x;
+		}
+		return width;
+	}
+
+	public double getHeight(){
+		double height=0;
+		for(Sommet s:listeSommets){
+			double x=s.getPosition().getY();
+			if(x>height) height=x;
+		}
+		return height;
+	}
+
 }
