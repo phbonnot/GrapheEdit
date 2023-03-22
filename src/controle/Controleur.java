@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import intOut.Graph2LaTeX;
+import intOut.Graph2XML;
 import modele.Boucle;
 import gui.VueArete;
 import gui.VueBoucle;
@@ -57,6 +58,9 @@ public class Controleur implements Initializable {
 	    private Button lettres;
 
 		@FXML
+		private MenuItem xml;
+
+		@FXML
 		private MenuItem open;
 	    @FXML
 	    void definirLibellesChiffres(ActionEvent event) {
@@ -91,9 +95,18 @@ public class Controleur implements Initializable {
 
 		@FXML
 		void save(ActionEvent event) {
+
+			//serialise(sauvegarde);
+		}
+
+		@FXML
+		void toXML(ActionEvent event){
 			final FileChooser fileChooser = new FileChooser();
 			File sauvegarde = fileChooser.showSaveDialog(null);
-			serialise(sauvegarde);
+			System.out.println(sauvegarde);
+			Graph2XML graph2XML=new Graph2XML(this.graphe);
+			graph2XML.afficher(graph2XML.toXML());
+			graph2XML.makeAFile(sauvegarde,graph2XML.toXML());
 		}
 
 		@FXML

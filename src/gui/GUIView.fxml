@@ -46,8 +46,11 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
                 <MenuItem fx:id="open" mnemonicParsing="false" onAction="#open" text="Open" />
-                <MenuItem fx:id="save" mnemonicParsing="false" onAction="#save" text="Save" />
-                <MenuItem mnemonicParsing="false" text="Close" />
+                <Menu fx:id="save" mnemonicParsing="false" text="Save" >
+                        <MenuItem fx:id="xml" onAction="#toXML" text="xml" />
+                        <MenuItem fx:id="json" text="json" />
+                </Menu>
+                <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
                 <MenuItem fx:id="export" mnemonicParsing="false" onAction="#export" text="Export"/>
             </items>
           </Menu>
