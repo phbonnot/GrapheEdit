@@ -1,5 +1,8 @@
 package intOut;
 
+import controle.Controleur;
+import gui.SurfaceDessin;
+import javafx.scene.control.*;
 import modele.Arete;
 import modele.Graphe;
 import modele.Sommet;
@@ -12,6 +15,8 @@ import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import java.io.*;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Optional;
 
 public class Graph2XML {
 
@@ -30,8 +35,22 @@ public class Graph2XML {
     }
 
 
+    public void readAFile(File f){
+        Document doc=null;
+        try {
+            SAXBuilder sax = new SAXBuilder();
+            doc=sax.build(f);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        if(doc.getRootElement().getName().equals("Graphe")){
+
+        }
+    }
+
     public  void makeAFile(File f, Document doc){
-        XMLOutputter out = new XMLOutputter();
+        XMLOutputter out = new XMLOutputter(Format.getPrettyFormat());
         try {
             out.output(doc.detachRootElement(), new FileOutputStream(f));
         }

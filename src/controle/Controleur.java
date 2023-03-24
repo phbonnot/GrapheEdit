@@ -5,10 +5,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import gui.SurfaceDessin;
 import intOut.Graph2LaTeX;
 import intOut.Graph2XML;
+import javafx.scene.control.*;
 import modele.Boucle;
 import gui.VueArete;
 import gui.VueBoucle;
@@ -20,8 +23,6 @@ import javafx.event.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -31,8 +32,12 @@ import modele.Sommet;
 
 public class Controleur implements Initializable {
 
+		private int nombreDeGraphes;
+
 		private String natureLibelles;
-		
+
+		@FXML
+		TabPane onglets;
 	 	@FXML
 	    private AnchorPane surfaceDessin;
 
@@ -105,7 +110,7 @@ public class Controleur implements Initializable {
 			File sauvegarde = fileChooser.showSaveDialog(null);
 			System.out.println(sauvegarde);
 			Graph2XML graph2XML=new Graph2XML(this.graphe);
-			graph2XML.afficher(graph2XML.toXML());
+			//graph2XML.afficher(graph2XML.toXML());
 			graph2XML.makeAFile(sauvegarde,graph2XML.toXML());
 		}
 
@@ -116,9 +121,44 @@ public class Controleur implements Initializable {
 		}
 
 		@FXML
-		void open(ActionEvent event) {
+		void open(ActionEvent e) {
 			final FileChooser fileChooser = new FileChooser();
 			File openFile = fileChooser.showOpenDialog(null);
+			String nameFile=openFile.getName();
+			String[] tab=nameFile.split("\\.");
+			String extension=tab[tab.length-1];
+			Alert dBox = new Alert(Alert.AlertType.CONFIRMATION);
+			dBox.setTitle("confirmer");
+			dBox.setContentText("Souhaitez-vous l'ouvrir dans une nouvelle fenêtre ? ");
+			ButtonType btnYes = new ButtonType("Oui");
+			ButtonType btnNo = new ButtonType("Non");
+			ButtonType btnCancel = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+			dBox.getButtonTypes().setAll(btnYes, btnNo, btnCancel);
+			Optional<ButtonType> answer=dBox.showAndWait();
+			if(answer.get()==btnYes){
+				nombreDeGraphes++;
+				Tab tPane=new Tab("graphe "+nombreDeGraphes);
+				this.onglets.getTabs().add(tPane);
+				Graphe graphe=new Graphe();
+				SurfaceDessin drawMap=new SurfaceDessin(nombreDeGraphes);
+
+				drawMap.setOnMousePressed(event -> {
+					detectionSouris(event);
+				});
+				tPane.setContent(drawMap);
+				
+			}
+			switch(extension){
+				case "xml" : {
+					Graph2XML graph2XML=new Graph2XML(this.graphe);
+					graph2XML.readAFile(openFile);
+				}
+				break;
+				case "json" : System.out.println("fichier json");break;
+				case "txt" : System.out.println("fichier texte");break;
+				default : System.out.println("fichier inconnu");
+			}
+/*
 			try{
 				BufferedReader reader = new BufferedReader(new FileReader(openFile));
 
@@ -137,10 +177,11 @@ public class Controleur implements Initializable {
 			}
 			catch(IOException ioe){
 				ioe.printStackTrace();
-			}
+			}*/
 		}
 	    @FXML
 	    void detectionSouris(MouseEvent e) {
+			surfaceDessin=(AnchorPane) this.onglets.getSelectionModel().getSelectedItem().getContent();
 	    	if(this.ctnSommet.get()) {
 	    		Sommet sommet=this.graphe.ajouterSommet(e.getX(),e.getY());
 				//System.out.println("x="+e.getX()+" y="+e.getY());
@@ -220,6 +261,7 @@ public class Controleur implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 	
 		this.graphe=new Graphe();
+		nombreDeGraphes=1;
 		this.natureLibelles="chiffres";
 		this.select=new SimpleBooleanProperty(false);
 		this.ctnSommet=new SimpleBooleanProperty(false);

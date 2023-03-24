@@ -2,9 +2,12 @@ package modele;
 
 import java.util.ArrayList;
 
+import controle.Controleur;
 import javafx.geometry.Point2D;
 
 public class Graphe {
+
+	private Controleur controle;
 
 	private ArrayList<Sommet> listeSommets;
 	private ArrayList<Arete> listeAretes;

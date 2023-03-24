@@ -11,9 +11,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
 <BorderPane prefHeight="390.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controle.Controleur">
    <center>
-      <AnchorPane fx:id="surfaceDessin" onMousePressed="#detectionSouris" prefHeight="317.0" prefWidth="578.0" />
+       <TabPane fx:id="onglets">
+           <Tab fx:id="tabInit" text="graphe 1">
+               <content>
+                   <AnchorPane fx:id="surfaceDessin" onMousePressed="#detectionSouris" prefHeight="317.0" prefWidth="578.0" />
+               </content>
+           </Tab>
+       </TabPane>
    </center>
    <right>
       <VBox prefHeight="200.0" prefWidth="150.0" spacing="30.0" BorderPane.alignment="CENTER">
