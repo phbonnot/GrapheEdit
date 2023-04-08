@@ -150,7 +150,7 @@ public class Controleur implements Initializable {
 			}
 			switch(extension){
 				case "xml" : {
-					Graph2XML graph2XML=new Graph2XML(this.graphe);
+					Graph2XML graph2XML=new Graph2XML();
 					graph2XML.readAFile(openFile);
 				}
 				break;

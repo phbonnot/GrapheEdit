@@ -6,16 +6,14 @@ import javafx.scene.control.*;
 import modele.Arete;
 import modele.Graphe;
 import modele.Sommet;
-import org.jdom2.Attribute;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
+import org.jdom2.*;
 import org.jdom2.input.SAXBuilder;
 import org.jdom2.output.Format;
 import org.jdom2.output.XMLOutputter;
 import java.io.*;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class Graph2XML {
@@ -24,6 +22,10 @@ public class Graph2XML {
 
     public Graph2XML(Graphe g) {
         this.graphe = g;
+    }
+
+    public Graph2XML(){
+        this.graphe=new Graphe();
     }
 
     public static void afficher(Document document) {
@@ -44,8 +46,23 @@ public class Graph2XML {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if(doc.getRootElement().getName().equals("Graphe")){
-
+        Element racineGraphe=doc.getRootElement();
+        if(racineGraphe.getName().equals("Graphe")){
+            Iterator ite= racineGraphe.getChildren().iterator();
+            while(ite.hasNext()){
+                Element courant=(Element)ite.next();
+                if(courant.getName().equals("Sommet")){
+                    String id=courant.getChild("Id").getAttributeValue("valeur");
+                    double posX=Double.parseDouble(courant.getChild("Position").getAttributeValue("posX"));
+                    double posY=Double.parseDouble(courant.getChild("Position").getAttributeValue("posY"));
+                    this.graphe.ajouterSommet(id,posX,posY);
+                }
+                if(courant.getName().equals("Arête")){
+                    int ext1=Integer.parseInt(courant.getChild("Ext_1").getAttributeValue("id"));
+                    int ext2=Integer.parseInt(courant.getChild("Ext_2").getAttributeValue("id"));
+                    this.graphe.ajouterArete(new Arete(this.graphe.getSommetAvecId(ext1),this.graphe.getSommetAvecId(ext2)));
+                }
+            }
         }
     }
 
@@ -85,5 +102,9 @@ public class Graph2XML {
             racine.addContent(arete);
         }
         return doc;
+    }
+
+    public Graphe getGraphe(){
+        return this.graphe;
     }
 }

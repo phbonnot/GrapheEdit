@@ -25,13 +25,29 @@ public class Graphe {
 		this.listeSommets.add(sommet);
 		return sommet;
 	}
-	
+
+	public Sommet ajouterSommet(String i, double x, double y){
+		this.idSommet=Integer.parseInt(i);
+		Sommet sommet=new Sommet(this.idSommet,""+this.idSommet,new Point2D(x,y));
+		this.listeSommets.add(sommet);
+		return sommet;
+	}
 	public void ajouterArete(Arete a) {
 		this.listeAretes.add(a);
 	}
 	
 	public int getId() {
 		return this.idSommet; 
+	}
+
+	public Sommet getSommetAvecId(int id){
+		Sommet sommetCherche=null;
+		for(Sommet s:this.listeSommets){
+			if(s.getId()==id){
+				sommetCherche=s;
+			}
+		}
+		return sommetCherche;
 	}
 
 	public int nbreSommets(){
