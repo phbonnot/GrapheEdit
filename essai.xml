@@ -1,0 +1,22 @@
+<Graphe>
+  <Sommet>
+    <Id valeur="1" />
+    <Position posX="56.0" posY="123.0" />
+  </Sommet>
+  <Sommet>
+    <Id valeur="2" />
+    <Position posX="238.0" posY="77.0" />
+  </Sommet>
+  <Sommet>
+    <Id valeur="3" />
+    <Position posX="193.0" posY="194.0" />
+  </Sommet>
+  <Arête>
+    <Ext_1 id="1" />
+    <Ext_2 id="2" />
+  </Arête>
+  <Arête>
+    <Ext_1 id="2" />
+    <Ext_2 id="3" />
+  </Arête>
+</Graphe>
